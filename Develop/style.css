@@ -1,0 +1,164 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+.wrapper {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  background-color: #f9fbfd;
+}
+
+/*stuff for the time and high score*/
+#timer {
+  float:right;
+  margin: 10px 20px 0 0;
+}
+
+#view_high_score {
+  float:left;
+  margin: 10px 0 0 20px;
+  color:rgb(179, 87, 255);
+  cursor: pointer;
+}
+
+
+.wrapper {
+  padding-top: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+}
+
+.wrapper p {
+  color: hsl(0, 0%, 0%);
+  font-size: 18px;
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 30px 40px;
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+  padding-top: 0px;
+  color: hsl(0, 0%, 0%);
+}
+
+.card-header::after {
+  content: " ";
+  display: block;
+  width: 100%;
+  background: #e7e9eb;
+  height: 2px;
+}
+
+.card-footer {
+  content: " ";
+  display: block;
+  width: 100%;
+  background: #e7e9eb;
+  height: 2px;
+}
+
+/* Style of how all the buttons will look */
+button {
+  border: none;
+  background-color: rgb(61, 3, 128);
+  border-radius: 20px;
+  color: hsl(0, 0%, 100%);
+  margin: 16px 16px 16px 20px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+button:hover{
+  background-color: rgb(111, 55, 175);
+}
+
+.btn{
+
+  padding: 14px 34px;
+  text-align: center;
+  font-size: 22px;
+  line-height: 22px;
+}
+
+.answers{
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-size: 18px;
+  padding: 14px 90px;
+  width: 50%;
+}
+
+#submit, #go_back, #clear{
+  font-size: 14px;
+  text-align: center;
+  padding: 8px 18px;
+  border-radius: 10px;
+}
+
+
+
+/* Styling the questions and answer section*/
+#quiz{
+  display: flex;
+  flex-direction: column;
+  padding: 60px 20px 30px 30px;
+}
+
+#question{
+  text-align: center;
+  padding-top: 0px;
+  color: hsl(0, 0%, 0%);
+}
+
+
+/*feedback*/
+#feedback{
+  margin-top: 20px;
+  border-top: 3px solid rgba(153, 152, 152, 0.425);
+  font-size: 20px;
+  color:rgb(117, 117, 117);
+
+}
+
+/*score results*/
+#results{
+  display: flex;
+  flex-direction: column;
+  padding: 60px 20px 30px 30px;
+}
+
+/*high score styling section*/
+#high_scores{
+  display: flex;
+  flex-direction: column;
+  padding: 60px 20px 30px 30px;
+
+}
+
+/* The media query stuff */
+@media (max-width: 690px) {
+  .btn {
+    font-size: 1rem;
+    margin: 16px 0px 0px 0px;
+    padding: 10px 15px;
+  }
+}
+
+@media (max-width: 500px) {
+  .btn {
+    font-size: 0.8rem;
+  }
+}
