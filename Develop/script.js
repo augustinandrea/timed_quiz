@@ -18,6 +18,9 @@ var high_scores = document.querySelector("#high_scores");
 var initials_input = document.querySelector("#initials");
 
 var list_scores = document.querySelector("#list_scores");
+var view_high_score = document.querySelector("#view_high_score");
+// array for the high scores
+var high_score_array = [];
 
 // variable arrays
 var q_and_a = [
@@ -31,7 +34,7 @@ var q_and_a = [
     },
 
     {
-        question: "The condition in an if/else statement is enclosed by a-",
+        question: "The condition in an if/else statement is enclosed by a -",
         answer_1: "Quotes",
         answer_2: "Curly brackets",
         answer_3: "Parenthesis",
@@ -40,7 +43,7 @@ var q_and_a = [
     },
 
     {
-        question: "Arrays in Javascript can be used to store:",
+        question: "Arrays in Javascript can be used to store ____.",
         answer_1: "Numbers and Strings",
         answer_2: "Other arrays",
         answer_3: "Booleans",
@@ -80,13 +83,14 @@ starting_button.addEventListener("click", click_start);
 sumbit_button.addEventListener("click", adding_high_scores);
 go_back_button.addEventListener("click", back_to_start);
 clear_button.addEventListener("click", clear_high_scores);
-
+view_high_score.addEventListener("click", create_high_score_page);
 
 //----------------functions----------------
 
 // start the quiz function on click
 function click_start() {
     document.querySelector(".wrapper").style.display = "none";
+    document.querySelector("#results").style.display = "none";
     document.querySelector("#quiz").style.display = "block";
     make_questions();
     timeLeft = 75;
@@ -96,20 +100,25 @@ function click_start() {
 //Show high scores when you press the submit button
 function adding_high_scores() {
 
+    if(initials_input.value === ""){
+        return (alert("Error: This cannot be blank."));
+    }
+    else {
+        console.log("That works.");
+    }
     create_high_score_page();
     add_score_to_list();
 
-    var init = localStorage.getItem("initials");
-    var scores = localStorage.getItem("score");
+    var init = JSON.parse( localStorage.getItem("initials and score") );
 
-    var init_and_score = init + " - " + scores;
+    list_scores.innerHTML = "";
 
-    var listed = document.createElement("li");
-    var stored_scores = document.createTextNode(init_and_score);
+    for(i = 0; i < init.length; i++){
+        var listed = document.createElement("li");
 
-    listed.appendChild(stored_scores);
-    list_scores.appendChild(listed);
-
+        listed.textContent = init[i].points + " - " + init[i].initial;
+        list_scores.appendChild(listed);
+    }
 }
 
 // solely pops up the high score page.
@@ -123,11 +132,20 @@ function create_high_score_page() {
 // return to the start of quiz by pressing the back button
 function back_to_start() {
     document.querySelector("#high_scores").style.display = "none";
+    document.querySelector("#results").style.display = "none";
     document.querySelector(".wrapper").style.display = "block";
     runningQuestion = 0;
     timeLeft = 0;
     timer.textContent = "Time: " + timeLeft;
 
+}
+
+// remove all high scores from local storage and ranking list
+function clear_high_scores() {
+    
+    high_score_array = [];
+    list_scores.innerHTML = "",
+    localStorage.clear(); //clears local storage
 }
 
 // The final scoring when quiz ends
@@ -149,6 +167,8 @@ function make_questions() {
     answer_2.innerHTML = q.answer_2;
     answer_3.innerHTML = q.answer_3;
     answer_4.innerHTML = q.answer_4;
+
+    document.querySelector("#results").style.display = "none";
 }
 
 // check if the answers are right or wrong
@@ -183,22 +203,18 @@ function add_score_to_list() {
     var initials = document.querySelector("#initials").value;
     var score = timeLeft;
 
-    if (initials === '') {
-        return (alert("error: This cannot be blank"));
-    }
-    else {
-        console.log("That works.");
-    }
+    var new_player = {initial: initials,
+                      points: score                    
+                     };
+
+    high_score_array.push(new_player);
+
+    high_score_array = high_score_array.sort(function(a, b) {
+                                                return b.points - a.points}
+                                            );
 
     // Save initials and score to localStorage using `setItem()`
-    localStorage.setItem("initials", initials);
-    localStorage.setItem("score", score);
-}
-
-// remove all high scores from local storage and ranking list
-function clear_high_scores() {
-
-    localStorage.clear(); //clears local storage
+    localStorage.setItem("initials and score", JSON.stringify(high_score_array) );
 
 }
 
@@ -237,10 +253,3 @@ function countdown(stop_or_start) {
         clearInterval(timeInterval);
     }
 }
-
-
-
-/* There are things I need to fix:
-    When clearing high scores, the button only clears the local variables, not the list
-
-*/

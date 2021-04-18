@@ -109,7 +109,6 @@ button:hover{
 }
 
 
-
 /* Styling the questions and answer section*/
 #quiz{
   display: flex;
@@ -144,8 +143,23 @@ button:hover{
 #high_scores{
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 60px 20px 30px 30px;
 
+}
+
+#list_scores{
+  font-weight: bolder;
+
+}
+
+
+li:nth-child(odd){
+  background-color: rgba(137, 43, 226, 0.308);
+}
+
+li:nth-child(even){
+  background-color: rgba(226, 43, 226, 0.308);
 }
 
 /* The media query stuff */
